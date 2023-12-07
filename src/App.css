@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track {
+  width: 8px;
+  border: none;
+  background: #efeeff99;
+}
+
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-corner,
+::-webkit-resizer {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #6256ff;
+}
+
+::-webkit-scrollbar-track {
+  /* background-image: url("https://i.imgur.com/GvV1R30.png"); */
+  background-repeat: repeat-x;
+  background-size: contain;
+
+  /* border-radius: 6px; */
+}

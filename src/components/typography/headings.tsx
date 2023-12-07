@@ -1,6 +1,6 @@
 import { SxProps, Theme, Typography } from "@mui/material";
 import { ReactNode } from "react";
-import useScreen from "../util/hooks/useScreen";
+import useScreen from "../hooks/useScreen";
 
 export const H1: React.FC<{ sx: SxProps<Theme>; scheme: "light" | "dark" }> = ({
   sx,
@@ -17,12 +17,12 @@ export const P: React.FC<{ sx?: SxProps<Theme>; children: ReactNode }> = ({
   return (
     <Typography
       sx={{
-        ...sx,
         fontSize: "14px",
         color: "white",
         // fontFamily: "DM Sans",
         fontStyle: "normal",
         fontWeight: 700,
+        ...sx,
       }}
     >
       {children}
@@ -38,12 +38,13 @@ export const H2: React.FC<{ sx?: SxProps<Theme>; children: ReactNode }> = ({
   return (
     <Typography
       sx={{
-        ...sx,
-        fontSize: currentScreen === "desktop" ? "" : "14px",
+        fontSize: currentScreen === "desktop" ? "36px" : "28px",
         color: "white",
         // fontFamily: "DM Sans",
         fontStyle: "normal",
         fontWeight: 700,
+
+        ...sx,
       }}
     >
       {children}
