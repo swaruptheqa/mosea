@@ -1,9 +1,17 @@
-import { Backdrop, Dialog, DialogContent, SxProps, Theme } from "@mui/material";
+import {
+  Backdrop,
+  Dialog,
+  DialogContent,
+  Stack,
+  SxProps,
+  Theme,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { palette } from "../constants/constants";
 import useScreen from "../hooks/useScreen";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { P } from "../typography/headings";
+import { TicketForm } from "./TicketForm";
 
 export const BookingModal: React.FC<{
   isOpen: boolean;
@@ -30,6 +38,7 @@ export const BookingModal: React.FC<{
     <Dialog
       open={isOpen}
       fullScreen={currentScreen === "mobile"}
+      maxWidth={"xl"}
       slots={{ backdrop: Backdrop }}
       slotProps={{
         backdrop: {
@@ -46,10 +55,11 @@ export const BookingModal: React.FC<{
     >
       <DialogContent
         sx={{
-          height: "70vh",
+          maxHeight: currentScreen === "desktop" ? "75vh" : "100vh",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          padding: "0px",
         }}
       >
         {currentScreen === "desktop" ? (
@@ -57,14 +67,45 @@ export const BookingModal: React.FC<{
         ) : (
           <ArrowBackIcon sx={backIconsx} onClick={onClose} />
         )}
-        <P
+        <Stack
+          direction={"column"}
           sx={{
-            color: palette.primary.indigo,
-            width: "100%",
+            alignItems: "center",
+            width: currentScreen === "desktop" ? "50vw" : "100%",
+            maxWidth: "460px",
+            marginX: "20px",
+            marginTop: "20px",
+            backgroundColor: "white",
           }}
         >
-          {"Birthday Kegger"}
-        </P>
+          <P
+            sx={{
+              color: palette.primary.indigo,
+              width: "100%",
+              textAlign: "center",
+              position: "sticky",
+              top: 20,
+              backgroundColor: "white",
+            }}
+          >
+            {"Birthday Kegger"}
+          </P>
+          <P
+            sx={{
+              color: "#00000080",
+              fontSize: "12px",
+              fontWeight: 400,
+              width: "100%",
+              textAlign: "center",
+              position: "sticky",
+              top: 42,
+              backgroundColor: "white",
+            }}
+          >
+            {"Nov 4, 2023 8:00pm - Nov 5, 2023 2:00am"}
+          </P>
+          <TicketForm />
+        </Stack>
       </DialogContent>
     </Dialog>
   );
