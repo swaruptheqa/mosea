@@ -22,6 +22,7 @@ export const BookingModal: React.FC<{
 
   //jsx
   const backIconsx: SxProps<Theme> = {
+    zIndex: 1,
     mr: "11px",
     position: "absolute",
     top: "15px",
@@ -73,7 +74,7 @@ export const BookingModal: React.FC<{
             alignItems: "center",
             width: currentScreen === "desktop" ? "50vw" : "100%",
             maxWidth: "460px",
-            marginX: "20px",
+            marginX: currentScreen === "desktop" ? "20px" : "",
             marginTop: "20px",
             backgroundColor: "white",
           }}

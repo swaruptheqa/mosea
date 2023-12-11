@@ -6,11 +6,12 @@ export const RoundedButton: React.FC<{
   children: ReactNode;
   onClick?: () => void;
   variant: "purple" | "grey";
-}> = ({ children, onClick, variant }) => {
+  width?: string;
+}> = ({ children, onClick, variant, width = "100%" }) => {
   return (
     <Button
       sx={{
-        width: "100%",
+        width: width,
         px: "24px",
         py: "16px",
         borderRadius: "100px",

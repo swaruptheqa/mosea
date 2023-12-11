@@ -22,6 +22,7 @@ function App() {
 
   //state variables
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [textLength, setTextLength] = useState<"short" | "long">("short");
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3>(1);
 
   //jsx
@@ -48,7 +49,7 @@ function App() {
         sx={{
           flexDirection: currentScreen === "desktop" ? "row" : "column",
           width: "100%",
-          height: "100vh",
+          height: currentScreen === "desktop" ? "100vh" : "auto",
         }}
       >
         {/* LEFT SIDE IMAGE AND CONTENT*/}
@@ -185,7 +186,7 @@ function App() {
                 fontWeight: 400,
               }}
             >
-              {longText}
+              {textLength == "long" ? longText : shortText}
             </P>
           </Stack>
           <Stack
@@ -205,7 +206,14 @@ function App() {
             >
               {"Buy tickets"}
             </RoundedButton>
-            <RoundedButton variant="grey">{"Use the Mosea app"}</RoundedButton>
+            <RoundedButton
+              variant="grey"
+              onClick={() =>
+                setTextLength((prev) => (prev == "long" ? "short" : "long"))
+              }
+            >
+              {"Use the Mosea app"}
+            </RoundedButton>
           </Stack>
         </Stack>
       </Stack>

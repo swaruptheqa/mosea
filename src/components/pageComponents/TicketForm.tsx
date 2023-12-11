@@ -30,7 +30,7 @@ export const TicketForm: React.FC<{}> = ({}) => {
       <Stack direction={"column"} sx={{ mt: "16px", width: "100%" }}>
         <Stack>
           {currentStep === 0 && <PageOne onNext={() => setCurrentStep(1)} />}
-          {currentStep === 1 && <PageTwo />}
+          {currentStep === 1 && <PageTwo  onNext={() => setCurrentStep(2)} />}
           {currentStep === 2 && <PageThree />}
         </Stack>
       </Stack>
@@ -51,7 +51,7 @@ const StepperElement: React.FC<{ currentStep: 0 | 1 | 2; steps: string[] }> = ({
       alternativeLabel
       // connector={<ColorlibConnector />}
       sx={{
-        width: currentScreen === "desktop" ? "320px" : "100vw",
+        width: currentScreen === "desktop" ? "320px" : "90vw",
         "& .MuiStepConnector-line": {
           minHeight: "40px",
         },

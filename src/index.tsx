@@ -45,8 +45,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           // margin: 0,
-          backgroundColor: "#7F7F7F",
+          // backgroundColor: "#7F7F7F",
           borderRadius: "100%",
+          color: "#7F7F7F",
           // padding: "0px",
           // Adjust the size or margin of the step icon if necessary
         },

@@ -86,14 +86,16 @@ export const PageOne: React.FC<{ onNext: () => void }> = ({ onNext }) => {
         direction={"column"}
         sx={{
           position: "sticky",
-          width: currentScreen === "desktop" ? "100%" : "92%",
+          width: currentScreen === "desktop" ? "100%" : "100%",
           bottom: 0,
           pt: "16px",
           pb: "20px",
+          // px: currentScreen === "desktop" ? "" : "16px",
+          alignItems: "center",
           bgcolor: "white",
         }}
       >
-        <RoundedButton variant="purple" onClick={onNext}>
+        <RoundedButton variant="purple" onClick={onNext} width={currentScreen === "desktop" ? "100%" : "92%"}>
           {"Next"}
         </RoundedButton>
       </Stack>
@@ -102,6 +104,24 @@ export const PageOne: React.FC<{ onNext: () => void }> = ({ onNext }) => {
 };
 
 const tickets: ticketType[] = [
+  {
+    title: "Early Bird",
+    description: "This is a little description of what is included",
+    price: "15",
+    available: 3,
+  },
+  {
+    title: "General Admission",
+    description: "This is a little description of what is included",
+    price: "32",
+    available: 2,
+  },
+  {
+    title: "Early Bird",
+    description: "This is a little description of what is included",
+    price: "15",
+    available: 1,
+  },
   {
     title: "Early Bird",
     description: "This is a little description of what is included",
