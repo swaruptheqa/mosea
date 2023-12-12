@@ -61,6 +61,7 @@ export const BookingModal: React.FC<{
           flexDirection: "column",
           alignItems: "center",
           padding: "0px",
+          overflowY: "hidden",
         }}
       >
         {currentScreen === "desktop" ? (

@@ -11,77 +11,87 @@ export const PageOne: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   //core variables
   const { currentScreen } = useScreen();
   return (
-    <Stack direction={"column"} sx={{ width: "100%" }}>
-      {/* {longText} */}
-      {tickets.map((ticket, index) => {
-        return (
-          <>
-            {/* *outer container */}
-            <Stack
-              direction={"row"}
-              sx={{ justifyContent: "space-between", m: "24px" }}
-            >
-              {/* left side of content */}
-              <Stack direction={"column"} sx={{ width: "100%" }}>
-                <P
-                  sx={{
-                    color: "black",
-                    fontSize: "16px",
-                    fontWeight: 500,
-                  }}
-                >
-                  {ticket.title}
-                </P>
-                <P
-                  sx={{
-                    color: palette.primary.indigo,
-                    fontsize: "16px",
-                    fontWeight: 500,
-                  }}
-                >
-                  {"$" + ticket.price}
-                </P>
-                <P
-                  sx={{
-                    color: "#555759",
-                    fontSize: "14px",
-                    fontWeight: 400,
-                  }}
-                >
-                  {ticket.description}
-                </P>
-              </Stack>
-              {/* right side dropdown */}
-              <Select
-                value={ticket.available}
-                variant="filled"
-                IconComponent={KeyboardArrowDownIcon}
-                style={{
-                  height: "30px",
-                }}
-                sx={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+    <>
+      <Stack
+        direction={"column"}
+        sx={{
+          width: "100%",
+          maxHeight: currentScreen === "desktop" ? "445px" : "67vh",
+          overflowY: "auto",
+          overflowX: "hidden",
+        }}
+      >
+        {/* {longText} */}
+        {tickets.map((ticket, index) => {
+          return (
+            <>
+              {/* *outer container */}
+              <Stack
+                direction={"row"}
+                sx={{ justifyContent: "space-between", m: "24px" }}
               >
-                {Array.from({ length: ticket.available }, (_, index) => (
-                  <MenuItem value={index + 1}>{index + 1}</MenuItem>
-                ))}
-              </Select>
-            </Stack>
-            <Divider
-              variant="middle"
-              sx={{
-                width: "100%",
-                maxWidth: "90vw",
-                my: "8px",
-                borderBottomWidth: "medium",
-                borderColor: palette.greyscale[3],
-              }}
-            />
-          </>
-        );
-      })}
+                {/* left side of content */}
+                <Stack direction={"column"} sx={{ width: "100%" }}>
+                  <P
+                    sx={{
+                      color: "black",
+                      fontSize: "16px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {ticket.title}
+                  </P>
+                  <P
+                    sx={{
+                      color: palette.primary.indigo,
+                      fontsize: "16px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {"$" + ticket.price}
+                  </P>
+                  <P
+                    sx={{
+                      color: "#555759",
+                      fontSize: "14px",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {ticket.description}
+                  </P>
+                </Stack>
+                {/* right side dropdown */}
+                <Select
+                  value={ticket.available}
+                  variant="filled"
+                  IconComponent={KeyboardArrowDownIcon}
+                  style={{
+                    height: "30px",
+                  }}
+                  sx={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {Array.from({ length: ticket.available }, (_, index) => (
+                    <MenuItem value={index + 1}>{index + 1}</MenuItem>
+                  ))}
+                </Select>
+              </Stack>
+              <Divider
+                variant="middle"
+                sx={{
+                  width: "100%",
+                  maxWidth: "90vw",
+                  my: "8px",
+                  borderBottomWidth: "medium",
+                  borderColor: palette.greyscale[3],
+                }}
+              />
+            </>
+          );
+        })}
+      </Stack>
       <Stack
         direction={"column"}
         sx={{
@@ -95,11 +105,15 @@ export const PageOne: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           bgcolor: "white",
         }}
       >
-        <RoundedButton variant="purple" onClick={onNext} width={currentScreen === "desktop" ? "100%" : "92%"}>
+        <RoundedButton
+          variant="purple"
+          onClick={onNext}
+          width={currentScreen === "desktop" ? "100%" : "92%"}
+        >
           {"Next"}
         </RoundedButton>
       </Stack>
-    </Stack>
+    </>
   );
 };
 

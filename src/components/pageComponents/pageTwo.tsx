@@ -1,4 +1,4 @@
-import { MenuItem, Select, Stack } from "@mui/material";
+import { Divider, MenuItem, Select, Stack } from "@mui/material";
 import { H2, P } from "../typography/headings";
 import { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -6,6 +6,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { palette } from "../constants/constants";
 import { RoundedButton } from "../form/buttons";
 import useScreen from "../hooks/useScreen";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export const PageTwo: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   //core variables
@@ -14,7 +15,7 @@ export const PageTwo: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   //state variables
   const [showSummary, setShowSummary] = useState(false);
   const [formSection, setFormSection] = useState<
-    "phone" | "information" | "confirmation"
+    "phone" | "otp" | "information" | "confirmation"
   >("phone");
 
   return (
@@ -59,7 +60,7 @@ export const PageTwo: React.FC<{ onNext: () => void }> = ({ onNext }) => {
             <ExpandLessIcon
               sx={{
                 color: palette.primary.indigo,
-                transform: showSummary ? "" : "rotate(180deg)",
+                transform: showSummary ? "" : "rotate(-180deg)",
                 transition: "all 0.2s",
               }}
             />
@@ -72,7 +73,7 @@ export const PageTwo: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           gap={"5px"}
           sx={{
             height: showSummary ? "100%" : "0px",
-            overflow: showSummary ? "auto" : "hidden",
+            overflow: "hidden",
             transition: "all 0.2s",
           }}
         >
@@ -150,9 +151,10 @@ export const PageTwo: React.FC<{ onNext: () => void }> = ({ onNext }) => {
         </Stack>
 
         {/* INFORMATION FORM SECTION */}
-        {formSection == "phone" && PhoneSection}
-        {formSection == "information" && InformationSection}
-        {formSection == "confirmation" && ConfirmationSection}
+        {formSection === "phone" && PhoneSection}
+        {formSection === "otp" && OTPSection}
+        {formSection === "information" && InformationSection}
+        {formSection === "confirmation" && ConfirmationSection}
 
         {/* NEXT BUTTON */}
         <Stack
@@ -172,6 +174,8 @@ export const PageTwo: React.FC<{ onNext: () => void }> = ({ onNext }) => {
             variant="purple"
             onClick={() => {
               formSection === "phone"
+                ? setFormSection("otp")
+                : formSection === "otp"
                 ? setFormSection("information")
                 : formSection === "information"
                 ? setFormSection("confirmation")
@@ -189,6 +193,79 @@ export const PageTwo: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   );
 };
 
+const InformationItem: React.FC<{ label: string; content: string }> = ({
+  label,
+  content,
+}) => {
+  return (
+    <Stack
+      direction={"row"}
+      sx={{
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <P
+        sx={{ color: "#000", fontSize: "16px", fontWeight: 500, width: "50%" }}
+      >
+        {label}
+      </P>
+      <P
+        sx={{
+          color: "#000",
+          fontSize: "14px",
+          fontWeight: 400,
+          textAlign: "left",
+          width: "50%",
+        }}
+      >
+        {content}
+      </P>
+    </Stack>
+  );
+};
+
+const ConfirmationItem: React.FC<{ label: string; content: string }> = ({
+  label,
+  content,
+}) => {
+  return (
+    <>
+      <Stack
+        direction={"column"}
+        sx={{
+          alignItems: "start",
+        }}
+      >
+        <P
+          sx={{
+            color: "#000",
+            fontSize: "16px",
+            fontWeight: 500,
+            width: "50%",
+          }}
+        >
+          {label}
+        </P>
+        <P
+          sx={{
+            color: palette.primary.indigo,
+            fontSize: "14px",
+            fontWeight: 400,
+            textAlign: "left",
+            width: "50%",
+          }}
+        >
+          {content}
+        </P>
+      </Stack>
+      <Divider
+        sx={{ borderBottomWidth: "2px", borderColor: palette.greyscale[3] }}
+      />
+    </>
+  );
+};
+
 const PhoneSection = (
   <>
     <P sx={{ color: "#000", fontSize: "18px", fontWeight: 700 }}>
@@ -200,8 +277,17 @@ const PhoneSection = (
         {"Phone number"}
       </P>
       <Stack direction={"row"} sx={{ gap: "5px" }}>
-        <Select value={"+1"}>
-          <MenuItem>{"+1"}</MenuItem>
+        <Select
+          value={"🇨🇦+1"}
+          variant="filled"
+          IconComponent={KeyboardArrowDownIcon}
+          style={
+            {
+              // color: "red",
+            }
+          }
+        >
+          <MenuItem>{"🇨🇦+1"}</MenuItem>
         </Select>
         <P
           sx={{
@@ -213,63 +299,102 @@ const PhoneSection = (
           {"4165602999"}
         </P>
       </Stack>
+    </Stack>
+  </>
+);
+
+const OTPSection = (
+  <>
+    <P sx={{ color: "#000", fontSize: "18px", fontWeight: 700 }}>
+      {"Enter the code we texted you"}
+    </P>
+    <Stack direction={"column"}>
+      <P sx={{ color: "#000", fontSize: "16px", fontWeight: 500 }}>{"Code"}</P>
+      <P
+        sx={{
+          color: palette.primary.indigo,
+          fontSize: "14px",
+          fontWeight: 400,
+        }}
+      >
+        {"34829"}
+      </P>
     </Stack>
   </>
 );
 
 const InformationSection = (
   <>
-    <P sx={{ color: "#000", fontSize: "18px", fontWeight: 700 }}>
-      {"Enter your phone number"}
-    </P>
-
-    <Stack direction={"column"} sx={{ gap: "10px" }}>
-      <P sx={{ color: "#000", fontSize: "16px", fontWeight: 500 }}>
-        {"Phone number"}
+    <Stack
+      direction={"row"}
+      sx={{
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <P sx={{ color: "#000", fontSize: "18px", fontWeight: 700 }}>
+        {"Your Information"}
       </P>
-      <Stack direction={"row"} sx={{ gap: "5px" }}>
-        <Select value={"+1"}>
-          <MenuItem>{"+1"}</MenuItem>
-        </Select>
-        <P
-          sx={{
-            color: palette.primary.indigo,
-            fontSize: "14px",
-            fontWeight: 400,
-          }}
-        >
-          {"4165602999"}
-        </P>
-      </Stack>
+      <P
+        sx={{
+          color: palette.primary.indigo,
+          fontSize: "12px",
+          fontWeight: 700,
+          padding: "10px 16px",
+          backgroundColor: palette.greyscale[3],
+          borderRadius: "100px",
+          cursor: "pointer",
+        }}
+      >
+        {"This is not me"}
+      </P>
     </Stack>
+
+    <Stack
+      direction={"column"}
+      sx={{
+        gap: "10px",
+        p: "10px",
+        border: "2px solid " + palette.greyscale[6],
+      }}
+    >
+      <InformationItem label={"First name"} content={"Colin"} />
+      <InformationItem
+        label={"Last name"}
+        content={"Name 50 char limit lorem ipsum dolor sit ameenstur"}
+      />
+      <InformationItem label={"Phone number"} content={"+14165602999"} />
+    </Stack>
+    <Stack direction={"column"}>
+      <P sx={{ color: "#000", fontSize: "16px", fontWeight: 500 }}>{"Email"}</P>
+      <P
+        sx={{
+          color: palette.primary.indigo,
+          fontSize: "14px",
+          fontWeight: 400,
+        }}
+      >
+        {"colin@mosea.io"}
+      </P>
+    </Stack>
+    <Divider
+      sx={{ borderBottomWidth: "2px", borderColor: palette.greyscale[3] }}
+    />
   </>
 );
 
 const ConfirmationSection = (
   <>
     <P sx={{ color: "#000", fontSize: "18px", fontWeight: 700 }}>
-      {"Enter your phone number"}
+      {"Your information"}
     </P>
 
-    <Stack direction={"column"} sx={{ gap: "10px" }}>
-      <P sx={{ color: "#000", fontSize: "16px", fontWeight: 500 }}>
-        {"Phone number"}
-      </P>
-      <Stack direction={"row"} sx={{ gap: "5px" }}>
-        <Select value={"+1"}>
-          <MenuItem>{"+1"}</MenuItem>
-        </Select>
-        <P
-          sx={{
-            color: palette.primary.indigo,
-            fontSize: "14px",
-            fontWeight: 400,
-          }}
-        >
-          {"4165602999"}
-        </P>
-      </Stack>
-    </Stack>
+    {/* <Stack sx={{ height: "100%", overflowY: "auto" }}> */}
+    <ConfirmationItem label={"First Name"} content={"Colin"} />
+    <ConfirmationItem label={"Last Name"} content={"Lee"} />
+    <ConfirmationItem label={"Email"} content={"colin@mosea.io"} />
+    <ConfirmationItem label={"Phone Number"} content={"+14165602999"} />
+    {/* </Stack> */}
   </>
 );
 
